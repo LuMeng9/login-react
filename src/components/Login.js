@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import logo from "../logo.svg";
 import "./Login.css";
-import SignUp from "./Signup";
 import Home from "./Home";
 
 class Login extends Component {
@@ -12,12 +11,12 @@ class Login extends Component {
       pass: "",
       errMsg: "",
       successMsg: "",
-      loginStatus: false,
-      showSignUp: false
+      loginStatus: false
     };
   }
 
   handleChange = event => {
+    console.log(this.props.data);
     let targetInputType = event.target.name;
     let targetInputValue = event.target.value;
 
@@ -27,11 +26,19 @@ class Login extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
+    const registerUsers = this.props.data;
+    const userNames = registerUsers.map(
+      user => `${user.firstName}${user.lastName}`
+    );
+    const userPasswords = registerUsers.map(user => `${user.password}`);
+    console.log(userNames);
+    console.log(userPasswords);
+
     let submittedNameValue = this.state.name;
     let submittedPassValue = this.state.pass;
     if (
-      submittedNameValue.toLowerCase() === this.props.userName &&
-      submittedPassValue === this.props.password
+      userNames.includes(submittedNameValue.toLowerCase()) &&
+      userPasswords.includes(submittedPassValue.toLowerCase())
     ) {
       this.setState({
         successMsg: "Log In Successfully!",
@@ -52,59 +59,48 @@ class Login extends Component {
 
   render() {
     if (!this.state.loginStatus) {
-      if (!this.state.showSignUp) {
-        return (
-          <div className="">
-            <div className="App-header">
-              <img src={logo} className="App-logo" alt="logo" />
-              <div className="login">
-                <h1>Log In</h1>
-                <form onSubmit={this.handleSubmit}>
-                  <div className="inner-wrap">
-                    <label>
-                      name
-                      <input
-                        type="text"
-                        name="name"
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </label>
-                    <label>
-                      password
-                      <input
-                        type="password"
-                        name="pass"
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </label>
-                    <p style={{ color: "red" }}>{this.state.errMsg}</p>
-                    <p style={{ color: "red" }}>{this.state.successMsg}</p>
-                  </div>
-                  <div className="button-section">
+      return (
+        <div className="">
+          <div className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <div className="login">
+              <h1>Log In</h1>
+              <form onSubmit={this.handleSubmit}>
+                <div className="inner-wrap">
+                  <label>
+                    name
                     <input
-                      style={{ float: "left" }}
-                      type="submit"
-                      name="login"
-                      value="Login"
+                      type="text"
+                      name="name"
+                      onChange={this.handleChange}
+                      required
                     />
+                  </label>
+                  <label>
+                    password
                     <input
-                      type="button"
-                      name="signup"
-                      value="Sign Up"
-                      style={{ float: "right" }}
-                      onClick={this.handleShowSignUp}
+                      type="password"
+                      name="pass"
+                      onChange={this.handleChange}
+                      required
                     />
-                  </div>
-                </form>
-              </div>
+                  </label>
+                  <p style={{ color: "red" }}>{this.state.errMsg}</p>
+                  <p style={{ color: "red" }}>{this.state.successMsg}</p>
+                </div>
+                <div className="button-section">
+                  <input
+                    style={{ float: "left" }}
+                    type="submit"
+                    name="login"
+                    value="Login"
+                  />
+                </div>
+              </form>
             </div>
           </div>
-        );
-      } else {
-        return <SignUp />;
-      }
+        </div>
+      );
     } else {
       return <Home name={this.state.name} />;
     }

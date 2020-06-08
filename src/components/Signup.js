@@ -7,9 +7,10 @@ class Signup extends Component {
       firstName: "",
       lastName: "",
       email: "",
-      phoneNumber: "",
+      phone: "",
       password: "",
-      confirmPassword: ""
+      confirmPassword: "",
+      signUpFalg: false
     };
   }
 
@@ -20,6 +21,22 @@ class Signup extends Component {
       [targetInputType]: targetInputValue
     });
   };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.onCreate(this.state);
+    this.setState({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      password: "",
+      confirmPassword: "",
+      signUpFalg: true
+    });
+    console.log("handleSubmit");
+  };
+
   render() {
     return (
       <div className="login">
@@ -36,7 +53,7 @@ class Signup extends Component {
               First Name
               <input
                 type="text"
-                name="fn"
+                name="firstName"
                 onChange={this.handleChange}
                 required
               />
@@ -45,7 +62,7 @@ class Signup extends Component {
               Last Name
               <input
                 type="text"
-                name="ln"
+                name="lastName"
                 onChange={this.handleChange}
                 required
               />
@@ -60,7 +77,7 @@ class Signup extends Component {
               Email Address
               <input
                 type="email"
-                name="em"
+                name="email"
                 onChange={this.handleChange}
                 required
               />
@@ -69,7 +86,7 @@ class Signup extends Component {
               Phone Number
               <input
                 type="text"
-                name="pn"
+                name="phone"
                 onChange={this.handleChange}
                 required
               />
@@ -84,7 +101,7 @@ class Signup extends Component {
               Password
               <input
                 type="password"
-                name="pass"
+                name="password"
                 onChange={this.handleChange}
                 required
               />
@@ -93,14 +110,14 @@ class Signup extends Component {
               Confirm Password
               <input
                 type="password"
-                name="conPass"
+                name="confirmPassword"
                 onChange={this.handleChange}
                 required
               />
             </label>
           </div>
           <div className="button-section">
-            <input type="submit" name="signUp" />
+            <button type="submit">Register</button>
           </div>
         </form>
       </div>
