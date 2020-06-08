@@ -9,8 +9,7 @@ class Signup extends Component {
       email: "",
       phone: "",
       password: "",
-      confirmPassword: "",
-      signUpFalg: false
+      confirmPassword: ""
     };
   }
 
@@ -24,16 +23,25 @@ class Signup extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.onCreate(this.state);
-    this.setState({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      password: "",
-      confirmPassword: "",
-      signUpFalg: true
-    });
+
+    if (this.state.password !== this.state.confirmPassword) {
+      this.setState({
+        err: <p style={{ color: "red" }}>Please check your confirm password</p>
+      });
+    } else {
+      this.props.onCreate(this.state);
+      this.setState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        password: "",
+        confirmPassword: ""
+      });
+      this.setState({
+        err: ""
+      });
+    }
     console.log("handleSubmit");
   };
 
@@ -55,6 +63,7 @@ class Signup extends Component {
                 type="text"
                 name="firstName"
                 onChange={this.handleChange}
+                value={this.state.firstName}
                 required
               />
             </label>
@@ -64,6 +73,7 @@ class Signup extends Component {
                 type="text"
                 name="lastName"
                 onChange={this.handleChange}
+                value={this.state.lastName}
                 required
               />
             </label>
@@ -79,6 +89,7 @@ class Signup extends Component {
                 type="email"
                 name="email"
                 onChange={this.handleChange}
+                value={this.state.email}
                 required
               />
             </label>
@@ -88,6 +99,7 @@ class Signup extends Component {
                 type="text"
                 name="phone"
                 onChange={this.handleChange}
+                value={this.state.phone}
                 required
               />
             </label>
@@ -103,6 +115,7 @@ class Signup extends Component {
                 type="password"
                 name="password"
                 onChange={this.handleChange}
+                value={this.state.password}
                 required
               />
             </label>
@@ -112,12 +125,14 @@ class Signup extends Component {
                 type="password"
                 name="confirmPassword"
                 onChange={this.handleChange}
+                value={this.state.confirmPassword}
                 required
               />
+              {this.state.err}
             </label>
           </div>
           <div className="button-section">
-            <button type="submit">Register</button>
+            <input type="submit" value="Register" />
           </div>
         </form>
       </div>

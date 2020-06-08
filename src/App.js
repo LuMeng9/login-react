@@ -14,8 +14,7 @@ class App extends Component {
           lastName: "lu",
           email: "lumeng1995@outlook.com",
           phone: "8613804972497",
-          password: "123456789",
-          signUpFalg: null
+          password: "123456789"
         },
         {
           id: 1,
@@ -23,8 +22,7 @@ class App extends Component {
           lastName: "lu",
           email: "meallonlu1995@outlook.com",
           phone: "8613804972497",
-          password: "123456789",
-          signUpFalg: null
+          password: "123456789"
         }
       ]
     };
@@ -38,13 +36,6 @@ class App extends Component {
       information: this.state.information.concat({ id: this.id++, ...data })
     });
     console.log(this.state.information);
-  };
-
-  handleClick = event => {
-    let targetBtnType = event.target.name;
-    this.setState({
-      [targetBtnType]: true
-    });
   };
 
   render() {
