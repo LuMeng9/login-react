@@ -42,13 +42,17 @@ class App extends Component {
     });
   };
 
-  handleCreate = data => {
+  showHelloTextInsideConsole = () => {
+    console.log("Hello");
+  };
+
+  handleCreate = (data, route) => {
     console.log(data);
 
     this.setState({
-      information: this.state.information.concat({ id: this.id++, ...data })
+      information: this.state.information.concat({ id: this.id++, ...data }),
+      route: route
     });
-    console.log(this.state.information);
   };
 
   render() {
@@ -63,6 +67,7 @@ class App extends Component {
           <Signup
             onCreate={this.handleCreate}
             showLoginPage={this.showLoginPage}
+            showHello={this.showHelloTextInsideConsole}
           />
         )}
       </div>

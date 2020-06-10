@@ -31,8 +31,8 @@ class Login extends Component {
       user => `${user.firstName}${user.lastName}`
     );
     const userPasswords = registerUsers.map(user => `${user.password}`);
-    console.log(userNames);
-    console.log(userPasswords);
+    // console.log(userNames);
+    // console.log(userPasswords);
 
     let submittedNameValue = this.state.name;
     let submittedPassValue = this.state.pass;
@@ -58,9 +58,9 @@ class Login extends Component {
   };
 
   render() {
-    if (!this.state.loginStatus) {
-      return (
-        <div className="">
+    return (
+      <div>
+        {!this.state.loginStatus ? (
           <div className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <div className="login">
@@ -106,11 +106,11 @@ class Login extends Component {
               </form>
             </div>
           </div>
-        </div>
-      );
-    } else {
-      return <Home name={this.state.name} />;
-    }
+        ) : (
+          <Home name={this.state.name} />
+        )}
+      </div>
+    );
   }
 }
 
