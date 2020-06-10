@@ -95,6 +95,13 @@ class Login extends Component {
                     name="login"
                     value="Login"
                   />
+                  <input
+                    style={{ float: "right" }}
+                    type="button"
+                    name="signup"
+                    value="Signup"
+                    onClick={this.props.showSignupPage}
+                  />
                 </div>
               </form>
             </div>

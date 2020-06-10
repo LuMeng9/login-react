@@ -24,10 +24,23 @@ class App extends Component {
           phone: "8613804972497",
           password: "123456789"
         }
-      ]
+      ],
+      route: "login"
     };
   }
   id = 2;
+
+  showLoginPage = e => {
+    this.setState({
+      route: "login"
+    });
+  };
+
+  showSignupPage = e => {
+    this.setState({
+      route: "signup"
+    });
+  };
 
   handleCreate = data => {
     console.log(data);
@@ -41,8 +54,17 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Login data={this.state.information} />
-        <Signup onCreate={this.handleCreate} />
+        {this.state.route === "login" ? (
+          <Login
+            data={this.state.information}
+            showSignupPage={this.showSignupPage}
+          />
+        ) : (
+          <Signup
+            onCreate={this.handleCreate}
+            showLoginPage={this.showLoginPage}
+          />
+        )}
       </div>
     );
   }
